@@ -26,6 +26,10 @@ Route::get('/v1', function () {
     ];
 });
 
+Route::fallback(function () {
+    return response()->json(['message' => trans('message.not_found'), 'error' => trans('message.route_not_found')], 404);
+});
+
 // Public routes
 Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('cities', CityController::class);
@@ -35,7 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 // Private routes
 Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function () {
-    Route::apiResource('addresses',AddressController::class);
+    Route::apiResource('addresses', AddressController::class);
     Route::apiResource('cities', CityController::class, [
         'except' => [
             'index',
