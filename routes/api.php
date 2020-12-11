@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,27 +28,27 @@ Route::get('/v1', function () {
 
 // Public routes
 Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('cities', 'CityController');
-    Route::apiResource('states', 'StateController');
-    Route::apiResource('countries', 'CountryController');
+    Route::apiResource('cities', CityController::class);
+    Route::apiResource('states', StateController::class);
+    Route::apiResource('countries', CountryController::class);
 });
 
 // Private routes
 Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function () {
-    Route::apiResource('addresses', 'AddressController');
-    Route::apiResource('cities', 'CityController', [
+    Route::apiResource('addresses',AddressController::class);
+    Route::apiResource('cities', CityController::class, [
         'except' => [
             'index',
             'show'
         ]
     ])->middleware('jwt.auth');
-    Route::apiResource('states', 'StateController', [
+    Route::apiResource('states', StateController::class, [
         'except' => [
             'index',
             'show'
         ]
     ])->middleware('jwt.auth');
-    Route::apiResource('countries', 'CountryController', [
+    Route::apiResource('countries', CountryController::class, [
         'except' => [
             'index',
             'show'
