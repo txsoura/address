@@ -17,8 +17,8 @@ class AddressSeeder extends Seeder
     public function run()
     {
         $country = Country::create([
-            'name' => 'Brasil',
-            'code' => 'BRA'
+            'name' => 'Brazil',
+            'code' => 'BR'
         ]);
 
         $state = State::create([
