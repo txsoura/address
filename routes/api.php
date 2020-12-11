@@ -24,34 +24,30 @@ Route::get('/v1', function () {
 
 // Public routes
 Route::group(['prefix' => 'v1'], function () {
-    // Route::apiResource('cities', 'CityController');
-    // Route::apiResource('states', 'StateController');
-    // Route::apiResource('countries', 'CountryController');
+    Route::apiResource('cities', 'CityController');
+    Route::apiResource('states', 'StateController');
+    Route::apiResource('countries', 'CountryController');
 });
 
 // Private routes
 Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function () {
-    // // User
-    // Route::apiResource('users/{user}/addresses', 'UserController');
-
-    // // Address
-    // Route::apiResource('addresses', 'AddressController');
-    // Route::apiResource('cities', 'CityController', [
-    //     'except' => [
-    //         'index',
-    //         'show'
-    //     ]
-    // ])->middleware('jwt.auth');
-    // Route::apiResource('states', 'StateController', [
-    //     'except' => [
-    //         'index',
-    //         'show'
-    //     ]
-    // ])->middleware('jwt.auth');
-    // Route::apiResource('countries', 'CountryController', [
-    //     'except' => [
-    //         'index',
-    //         'show'
-    //     ]
-    // ])->middleware('jwt.auth');
+    Route::apiResource('addresses', 'AddressController');
+    Route::apiResource('cities', 'CityController', [
+        'except' => [
+            'index',
+            'show'
+        ]
+    ])->middleware('jwt.auth');
+    Route::apiResource('states', 'StateController', [
+        'except' => [
+            'index',
+            'show'
+        ]
+    ])->middleware('jwt.auth');
+    Route::apiResource('countries', 'CountryController', [
+        'except' => [
+            'index',
+            'show'
+        ]
+    ])->middleware('jwt.auth');
 });
