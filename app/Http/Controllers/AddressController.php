@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AddressCreated;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
@@ -44,6 +45,11 @@ class AddressController extends Controller
         ]);
 
         $address = Address::create($request->all());
+
+        if (!$request['latitude'] || !$request['longitude']) {
+            event(new AddressCreated($address));
+        }
+
         return new AddressResource($address, 201);
     }
 
