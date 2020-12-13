@@ -14,6 +14,16 @@ Welcome to the address wiki!
 
 ## Documentation
 
-> [ERR Diagram](https://github.com/txssec/address/wiki/ERR-Diagram)
+ [ERR Diagram](https://github.com/txssec/address/wiki/ERR-Diagram)
 
-> [API](https://github.com/txssec/address/wiki/API)
+ [Introduction](https://github.com/txssec/address/wiki/Introduction)
+
+ [Google Maps](https://github.com/txssec/address/wiki/Google-Maps)
+
+ [Address](https://github.com/txssec/address/wiki/Address)
+
+ [City](https://github.com/txssec/address/wiki/City)
+ 
+ [State](https://github.com/txssec/address/wiki/State)
+
+ [Country](https://github.com/txssec/address/wiki/Country)
