@@ -1,5 +1,7 @@
 # Address
 
+Welcome to the address wiki!
+
 ## Guidelines
 
 >Git
@@ -12,6 +14,6 @@
 
 ## Documentation
 
-> ERR Diagram
+> [ERR Diagram](https://github.com/txssec/address/wiki/ERR-Diagram)
 
-> API
+> [API](https://github.com/txssec/address/wiki/API)
