@@ -16,12 +16,6 @@ return [
     'failed' => 'Essas credenciais não correspondem aos nossos registros.',
     'password' => 'A senha fornecida está incorreta.',
     'throttle' => 'Muitas tentativas de login. Tente novamente em :seconds segundos.',
-    'already_logged_out' => 'Já deslogado',
     'unauthenticated' => 'Não autenticado',
-    'token_expired' => 'Token expirado',
-    'token_invalid' => 'Token inválido',
-    'token_blacklisted' => 'Token na lista negra',
-    'token_not_provided' => 'Token não fornecido',
-    'token_cannot_parse' => 'Token não pode ser formatado',
     'user_not_found' => 'Usuário não encontrado',
 ];
