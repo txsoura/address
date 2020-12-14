@@ -38,24 +38,24 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 // Private routes
-Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function () {
+Route::group(['prefix' => 'v1', 'middleware' => ['']], function () {
     Route::apiResource('addresses', AddressController::class);
     Route::apiResource('cities', CityController::class, [
         'except' => [
             'index',
             'show'
         ]
-    ])->middleware('jwt.auth');
+    ])->middleware('');
     Route::apiResource('states', StateController::class, [
         'except' => [
             'index',
             'show'
         ]
-    ])->middleware('jwt.auth');
+    ])->middleware('');
     Route::apiResource('countries', CountryController::class, [
         'except' => [
             'index',
             'show'
         ]
-    ])->middleware('jwt.auth');
+    ])->middleware('');
 });
