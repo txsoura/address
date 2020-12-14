@@ -44,60 +44,19 @@ class Handler extends ExceptionHandler
             }
 
             if ($e instanceof UnauthorizedHttpException) {
-                $preException = $e->getPrevious();
+                // $preException = $e->getPrevious();
 
-                if ($preException instanceof
-                    \Tymon\JWTAuth\Exceptions\TokenExpiredException
-                ) {
-                    return response()->json([
-                        'message' => trans('auth.unauthenticated'),
-                        'error' => trans('auth.token_expired')
-                    ], 401);
-                } else if ($preException instanceof
-                    \Tymon\JWTAuth\Exceptions\TokenInvalidException
-                ) {
-                    return response()->json([
-                        'message' => trans('auth.unauthenticated'),
-                        'error' => trans('auth.token_invalid')
-                    ], 401);
-                } else if ($preException instanceof
-                    \Tymon\JWTAuth\Exceptions\TokenBlacklistedException
-                ) {
-                    return response()->json([
-                        'message' => trans('auth.unauthenticated'),
-                        'error' => trans('auth.token_blacklisted')
-                    ], 401);
-                } else if ($preException instanceof
-                    \Tymon\JWTAuth\Exceptions\JWTException
-                ) {
-                    return response()->json([
-                        'message' => trans('auth.unauthenticated'),
-                        'error' => trans('auth.token_cannot_parse')
-                    ], 401);
-                }
+                // if ($preException instanceof
+                //     exception
+                // ) {
+                //     return response()->json([
+                //         'message' => trans('auth.unauthenticated'),
+                //         'error' => trans('auth.token_expired')
+                //     ], 401);
+                // }
 
-                if ($e->getMessage() === 'Token not provided') {
-                    return response()->json([
-                        'message' => trans('auth.unauthenticated'),
-                        'error' => trans('auth.token_not_provided')
-                    ], 401);
-                }
-            }
-
-            if ($e instanceof
-                \Tymon\JWTAuth\Exceptions\JWTException
-            ) {
                 return response()->json([
                     'message' => trans('auth.unauthenticated'),
-                    'error' => trans('auth.already_logged_out')
-                ], 422);
-            }
-
-            if ($e instanceof
-                \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-            ) {
-                return response()->json([
-                    'message' => trans('auth.not_found'),
                     'error' => trans('auth.user_not_found')
                 ], 404);
             }
