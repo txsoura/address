@@ -32,30 +32,31 @@ Route::fallback(function () {
 
 // Public routes
 Route::group(['prefix' => 'v1'], function () {
+    Route::apiResource('addresses', AddressController::class);
     Route::apiResource('cities', CityController::class);
     Route::apiResource('states', StateController::class);
     Route::apiResource('countries', CountryController::class);
 });
 
 // Private routes
-Route::group(['prefix' => 'v1', 'middleware' => ['']], function () {
-    Route::apiResource('addresses', AddressController::class);
-    Route::apiResource('cities', CityController::class, [
-        'except' => [
-            'index',
-            'show'
-        ]
-    ])->middleware('');
-    Route::apiResource('states', StateController::class, [
-        'except' => [
-            'index',
-            'show'
-        ]
-    ])->middleware('');
-    Route::apiResource('countries', CountryController::class, [
-        'except' => [
-            'index',
-            'show'
-        ]
-    ])->middleware('');
-});
+// Route::group(['prefix' => 'v1', 'middleware' => ['']], function () {
+//     Route::apiResource('addresses', AddressController::class);
+//     Route::apiResource('cities', CityController::class, [
+//         'except' => [
+//             'index',
+//             'show'
+//         ]
+//     ])->middleware('');
+//     Route::apiResource('states', StateController::class, [
+//         'except' => [
+//             'index',
+//             'show'
+//         ]
+//     ])->middleware('');
+//     Route::apiResource('countries', CountryController::class, [
+//         'except' => [
+//             'index',
+//             'show'
+//         ]
+//     ])->middleware('');
+// });
