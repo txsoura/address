@@ -35,18 +35,17 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            if ($e instanceof ModelNotFoundExceptions) {
+        $this->reportable(function (Throwable $e, $request) {
+            if ($e instanceof ModelNotFoundException) {
                 return response()->json([
                     'message' => trans('message.not_found'),
                     'error' => trans('message.entry_not_found', ['model' => str_replace('App\\Models\\', '', $e->getModel())])
                 ], 404);
             }
 
-            \Log::info($e);
             if ($e instanceof UnauthorizedHttpException) {
                 $preException = $e->getPrevious();
-                \Log::info($preException);
+
                 if ($preException instanceof
                     \Tymon\JWTAuth\Exceptions\TokenExpiredException
                 ) {
