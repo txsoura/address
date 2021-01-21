@@ -61,9 +61,9 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
-        Schema::dropIfExists('states');
-        Schema::dropIfExists('cities');
         Schema::dropIfExists('addresses');
+        Schema::dropIfExists('cities');
+        Schema::dropIfExists('states');
+        Schema::dropIfExists('countries');
     }
 }

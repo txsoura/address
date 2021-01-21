@@ -1,7 +1,5 @@
 <?php
 
-namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -17,10 +15,10 @@ class DatabaseSeeder extends Seeder
         $this->call(AddressSeeder::class);
 
         if (App::environment('local', 'staging')) {
-            \App\Models\Country::factory(4)->create();
-            \App\Models\State::factory(3)->create();
-            \App\Models\City::factory(2)->create();
-            \App\Models\Address::factory()->create();
+            factory(\App\Models\Country::class, 4)->create();
+            factory(\App\Models\State::class, 3)->create();
+            factory(\App\Models\City::class, 2)->create();
+            factory(\App\Models\Address::class, 1)->create();
         }
     }
 }
