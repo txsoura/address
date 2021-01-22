@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\AddressController;
-use App\Http\Controllers\CityController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\StateController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,38 +22,13 @@ Route::get('/v1', function () {
         'locale' => app()->getLocale(),
     ];
 });
-
 Route::fallback(function () {
     return response()->json(['message' => trans('message.not_found'), 'error' => trans('message.route_not_found')], 404);
 });
 
-// Public routes
 Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('addresses', AddressController::class);
-    Route::apiResource('cities', CityController::class);
-    Route::apiResource('states', StateController::class);
-    Route::apiResource('countries', CountryController::class);
+    Route::apiResource('addresses', 'AddressController');
+    Route::apiResource('cities', 'CityController');
+    Route::apiResource('states', 'StateController');
+    Route::apiResource('countries', 'CountryController');
 });
-
-// Private routes
-// Route::group(['prefix' => 'v1', 'middleware' => ['']], function () {
-//     Route::apiResource('addresses', AddressController::class);
-//     Route::apiResource('cities', CityController::class, [
-//         'except' => [
-//             'index',
-//             'show'
-//         ]
-//     ])->middleware('');
-//     Route::apiResource('states', StateController::class, [
-//         'except' => [
-//             'index',
-//             'show'
-//         ]
-//     ])->middleware('');
-//     Route::apiResource('countries', CountryController::class, [
-//         'except' => [
-//             'index',
-//             'show'
-//         ]
-//     ])->middleware('');
-// });

@@ -2,9 +2,7 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -29,39 +27,29 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Report or log an exception.
      *
+     * @param  \Throwable  $exception
      * @return void
+     *
+     * @throws \Throwable
      */
-    public function register()
+    public function report(Throwable $exception)
     {
-        $this->renderable(function (Throwable $e, $request) {
-            if ($e instanceof ModelNotFoundException) {
-                return response()->json([
-                    'message' => trans('message.not_found'),
-                    'error' => trans('message.entry_not_found', ['model' => str_replace('App\\Models\\', '', $e->getModel())])
-                ], 404);
-            }
+        parent::report($exception);
+    }
 
-            if ($e instanceof UnauthorizedHttpException) {
-                // $preException = $e->getPrevious();
-
-                // if ($preException instanceof
-                //     exception
-                // ) {
-                //     return response()->json([
-                //         'message' => trans('auth.unauthenticated'),
-                //         'error' => trans('auth.token_expired')
-                //     ], 401);
-                // }
-
-                return response()->json([
-                    'message' => trans('auth.unauthenticated'),
-                    'error' => trans('auth.user_not_found')
-                ], 404);
-            }
-
-            return parent::render($request, $e);
-        });
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        return parent::render($request, $exception);
     }
 }
