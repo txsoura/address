@@ -43,7 +43,7 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             \App\Http\Middleware\ResponseJson::class,
             \App\Http\Middleware\CheckLocale::class,
-            // \App\Http\Middleware\ApiAuth::class,
+            \App\Http\Middleware\ApiAuth::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -56,7 +56,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
