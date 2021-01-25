@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CountryController extends Controller
 {
@@ -26,6 +27,9 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
+        $request['name'] = ucwords($request['name']);
+        $request['code'] = Str::upper($request['code']);
+
         $request->validate([
             'name' => 'required|string',
             'code' => 'required|string|unique:countries'
@@ -56,6 +60,9 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
+        $request['name'] = ucwords($request['name']);
+        $request['code'] = Str::upper($request['code']);
+
         $request->validate([
             'name' => 'string',
             'code' => 'string|unique:countries'

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\StateResource;
 use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class StateController extends Controller
 {
@@ -30,6 +31,9 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
+        $request['name'] = ucwords($request['name']);
+        $request['code'] = Str::upper($request['code']);
+
         $request->validate([
             'name' => 'required|string',
             'code' => 'required|string|unique:states',
@@ -64,6 +68,9 @@ class StateController extends Controller
      */
     public function update(Request $request, State $state)
     {
+        $request['name'] = ucwords($request['name']);
+        $request['code'] = Str::upper($request['code']);
+
         $request->validate([
             'name' => 'string',
             'code' => 'string|unique:states',

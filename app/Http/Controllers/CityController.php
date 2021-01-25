@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CityResource;
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CityController extends Controller
 {
@@ -30,6 +31,9 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
+        $request['name'] = ucwords($request['name']);
+        $request['code'] = Str::upper($request['code']);
+
         $request->validate([
             'name' => 'required|string',
             'code' => 'required|string|unique:cities',
@@ -65,6 +69,9 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
+        $request['name'] = ucwords($request['name']);
+        $request['code'] = Str::upper($request['code']);
+
         $request->validate([
             'name' => 'string',
             'code' => 'string|unique:cities',

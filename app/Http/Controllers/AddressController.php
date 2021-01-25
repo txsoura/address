@@ -44,6 +44,10 @@ class AddressController extends Controller
             'city_id' => 'required|numeric|exists:cities,id'
         ]);
 
+        $request['name'] = ucwords($request['name']);
+        $request['district'] = ucwords($request['district']);
+        $request['street'] = ucwords($request['street']);
+
         $address = Address::create($request->all());
 
         if (!$request['latitude'] || !$request['longitude']) {
@@ -87,6 +91,10 @@ class AddressController extends Controller
             'longitude' => 'string',
             'latitude' => 'string'
         ]);
+
+        $request['name'] = ucwords($request['name']);
+        $request['district'] = ucwords($request['district']);
+        $request['street'] = ucwords($request['street']);
 
         $address->update($request->all());
 
