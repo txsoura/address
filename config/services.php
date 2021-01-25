@@ -35,4 +35,8 @@ return [
         'url' => env('GOOGLE_MAPS_API_URL'),
     ],
 
+    'guardian' => [
+        'url' => env('GUARDIAN_URL'),
+    ],
+
 ];
