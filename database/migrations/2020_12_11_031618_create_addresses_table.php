@@ -16,14 +16,14 @@ class CreateAddressesTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->timestamps();
         });
 
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->foreignId('country_id')->references('id')->on('countries');
             $table->timestamps();
         });
@@ -32,7 +32,7 @@ class CreateAddressesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->foreignId('state_id')->references('id')->on('states');
             $table->timestamps();
         });
