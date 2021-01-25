@@ -16,11 +16,13 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request['include']) {
-            return AddressResource::collection(Address::with(explode(',', $request['include']))->get(), 200);
-        } else {
-            return AddressResource::collection(Address::all(), 200);
-        }
+        return AddressResource::collection(
+            Address::when($request['include'], function ($query, $include) {
+                return $query->with(explode(',',  $include));
+            })
+                ->get(),
+            200
+        );
     }
 
     /**
@@ -65,11 +67,13 @@ class AddressController extends Controller
      */
     public function show(Request $request, Address $address)
     {
-        if ($request['include']) {
-            return AddressResource::collection(Address::where('id', $address->id)->with(explode(',', $request['include']))->get(), 200);
-        } else {
-            return new AddressResource($address, 200);
-        }
+        return AddressResource::collection(
+            Address::find($address->id)
+                ->when($request['include'], function ($query, $include) {
+                    return $query->with(explode(',',  $include));
+                })->firstOrFail(),
+            200
+        );
     }
 
     /**
