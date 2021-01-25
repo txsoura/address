@@ -16,11 +16,13 @@ class StateController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request['include']) {
-            return StateResource::collection(State::with(explode(',', $request['include']))->get(), 200);
-        } else {
-            return StateResource::collection(State::all(), 200);
-        }
+        return StateResource::collection(
+            State::when($request['include'], function ($query, $include) {
+                return $query->with(explode(',',  $include));
+            })
+                ->get(),
+            200
+        );
     }
 
     /**
@@ -52,11 +54,14 @@ class StateController extends Controller
      */
     public function show(Request $request, State $state)
     {
-        if ($request['include']) {
-            return StateResource::collection(State::where('id', $state->id)->with(explode(',', $request['include']))->get(), 200);
-        } else {
-            return new StateResource($state, 200);
-        }
+        return StateResource::collection(
+            State::find($state->id)
+                ->when($request['include'], function ($query, $include) {
+                    return $query->with(explode(',',  $include));
+                })
+                ->firstOrFail(),
+            200
+        );
     }
 
     /**
