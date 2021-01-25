@@ -16,11 +16,13 @@ class CityController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request['include']) {
-            return CityResource::collection(City::with(explode(',', $request['include']))->get(), 200);
-        } else {
-            return CityResource::collection(City::all(), 200);
-        }
+        return CityResource::collection(
+            City::when($request['include'], function ($query, $include) {
+                return $query->with(explode(',',  $include));
+            })
+                ->get(),
+            200
+        );
     }
 
     /**
@@ -52,12 +54,14 @@ class CityController extends Controller
      */
     public function show(Request $request, City $city)
     {
-        if ($request['include']) {
-            return CityResource::collection(City::where('id', $city->id)->with(explode(',', $request['include']))->get(), 200);
-        } else {
-            return new CityResource($city, 200);
-        }
-        return new CityResource($city, 200);
+        return CityResource::collection(
+            City::find($city->id)
+                ->when($request['include'], function ($query, $include) {
+                    return $query->with(explode(',',  $include));
+                })
+                ->firstOrFail(),
+            200
+        );
     }
 
     /**
