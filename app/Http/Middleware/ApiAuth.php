@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class ApiAuth
@@ -24,31 +24,18 @@ class ApiAuth
             $token = Str::substr($token, 7);
         }
 
-        $client = new Client();
-        $response = $client->request(
-            'GET',
-            $guardian['url'] . '/api/v1/auth/me',
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Cache-Control' => 'no-cache',
-                    'Content-Type' => 'application/json'
-                ]
-            ]
-        );
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Cache-Control' => 'no-cache',
+            'Content-Type' => 'application/json',
+        ])
+            ->withToken($token)
+            ->get($guardian['url'] . '/api/v1/auth/me',);
 
-        dd($response);
+        if ($response->status() != 200) {
+            return response()->json($response->json(), $response->status());
+        }
 
-        // if ($response->getStatusCode != 200) {
-        //     \Log::info($response->getBody());
-        //     \Log::info("k===========================================");
-        //     $response = json_decode($response->getBody());
-        //     \Log::info($response);
-        //     \Log::info("k===========================================");
-
-        //     \Log::info($response->status);
-        //     \Log::info("k===========================================");
-        // }
         return $next($request);
     }
 }
