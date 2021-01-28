@@ -17,23 +17,25 @@ class ApiAuth
      */
     public function handle($request, Closure $next)
     {
-        $guardian = config('services.guardian');
-        $token = $request->header('Authorization');
+        if (config('guardian.enabled')) {
+            $guardian = config('guardian');
+            $token = $request->header('Authorization');
 
-        if (Str::startsWith($token, 'Bearer ')) {
-            $token = Str::substr($token, 7);
-        }
+            if (Str::startsWith($token, 'Bearer ')) {
+                $token = Str::substr($token, 7);
+            }
 
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Cache-Control' => 'no-cache',
-            'Content-Type' => 'application/json',
-        ])
-            ->withToken($token)
-            ->get($guardian['url'] . '/api/v1/auth/me',);
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Cache-Control' => 'no-cache',
+                'Content-Type' => 'application/json',
+            ])
+                ->withToken($token)
+                ->get($guardian['url'] . '/api/v1/auth/me',);
 
-        if ($response->status() != 200) {
-            return response()->json($response->json(), $response->status());
+            if ($response->status() != 200) {
+                return response()->json($response->json(), $response->status());
+            }
         }
 
         return $next($request);
