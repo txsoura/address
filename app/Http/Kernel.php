@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\ResponseJson::class,
             \App\Http\Middleware\CheckLocale::class,
             \App\Http\Middleware\ApiAuth::class,
+            \App\Http\Middleware\ApiACL::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
