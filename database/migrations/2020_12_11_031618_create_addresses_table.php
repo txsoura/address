@@ -47,7 +47,8 @@ class CreateAddressesTable extends Migration
             $table->string('name')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->bigInteger('user_id')->nullable();
+            $table->string('owner')->nullable();
+            $table->bigInteger('owner_id')->nullable();
             $table->foreignId('city_id')->references('id')->on('cities');
             $table->timestamps();
             $table->softDeletes();
