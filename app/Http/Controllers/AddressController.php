@@ -6,6 +6,7 @@ use App\Events\AddressCreated;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AddressController extends Controller
 {
@@ -16,9 +17,20 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'owner' => 'nullable|string',
+            'owner_id' => 'nullable|string',
+        ]);
+
         return AddressResource::collection(
             Address::when($request['include'], function ($query, $include) {
                 return $query->with(explode(',',  $include));
+            })
+            ->when($request['owner'], function ($query, $owner) {
+                return $query->where('owner',  $owner);
+            })
+            ->when($request['owner_id'], function ($query, $owner_id) {
+                return $query->where('owner_id',  $owner_id);
             })
                 ->get(),
             200
@@ -42,13 +54,15 @@ class AddressController extends Controller
             'name' => 'string',
             'longitude' => 'nullable|string',
             'latitude' => 'nullable|string',
-            'user_id' =>  'nullable|numeric',
+            'owner' =>  'nullable|string',
+            'owner_id' =>  'nullable|numeric',
             'city_id' => 'required|numeric|exists:cities,id'
         ]);
 
         $request['name'] = ucwords($request['name']);
         $request['district'] = ucwords($request['district']);
         $request['street'] = ucwords($request['street']);
+        $request['owner'] = Str::lower($request['owner']);
 
         $address = Address::create($request->all());
 

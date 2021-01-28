@@ -16,7 +16,7 @@ class StateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => ucwords($this->name),
+            'name' => $this->name,
             'code' => $this->code,
             'country' => new CountryResource($this->whenLoaded('country')),
             'created_at' => $this->created_at,

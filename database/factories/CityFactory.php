@@ -6,8 +6,8 @@ use Faker\Generator as Faker;
 
 $factory->define(City::class, function (Faker $faker) {
     return [
-        'name' => $faker->city,
-        'code' => $faker->cityPrefix,
+        'name' => $faker->unique()->city,
+        'code' => $faker->unique()->cityPrefix,
         'state_id' => function () {
             return factory(State::class)->create()->id;
         }

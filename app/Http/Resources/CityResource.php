@@ -16,7 +16,7 @@ class CityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => ucwords($this->name),
+            'name' => $this->name,
             'code' => $this->code,
             'state_id' => $this->state_id,
             'state' => new StateResource($this->whenLoaded('state')),
