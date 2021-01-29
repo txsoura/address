@@ -21,7 +21,7 @@ class AddressSeeder extends Seeder
 
         $state = State::create([
             'name' => 'Paraná',
-            'code' => 'PR',
+            'code' => 'BR-PR',
             'country_id' => $country->id
         ]);
 

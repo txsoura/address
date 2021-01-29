@@ -16,7 +16,7 @@ class Address extends Model
     protected $dates = ['created_at', 'deleted_at'];
 
     protected $fillable = [
-        'name',  'number', 'street', 'postcode', 'complement', 'district', 'longitude', 'latitude', 'owner', 'owner_id', 'city_id'
+        'name',  'number', 'street', 'postcode', 'complement', 'district', 'longitude', 'latitude', 'owner_type', 'owner_id', 'city_id'
     ];
 
     public function city()

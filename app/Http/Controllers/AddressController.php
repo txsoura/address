@@ -18,7 +18,7 @@ class AddressController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'owner' => 'nullable|string',
+            'owner_type' => 'nullable|string',
             'owner_id' => 'nullable|string',
         ]);
 
@@ -26,8 +26,8 @@ class AddressController extends Controller
             Address::when($request['include'], function ($query, $include) {
                 return $query->with(explode(',',  $include));
             })
-            ->when($request['owner'], function ($query, $owner) {
-                return $query->where('owner',  $owner);
+            ->when($request['owner_type'], function ($query, $owner_type) {
+                return $query->where('owner_type',  $owner_type);
             })
             ->when($request['owner_id'], function ($query, $owner_id) {
                 return $query->where('owner_id',  $owner_id);
@@ -54,7 +54,7 @@ class AddressController extends Controller
             'name' => 'string',
             'longitude' => 'nullable|string',
             'latitude' => 'nullable|string',
-            'owner' =>  'nullable|string',
+            'owner_type' =>  'nullable|string',
             'owner_id' =>  'nullable|numeric',
             'city_id' => 'required|numeric|exists:cities,id'
         ]);
@@ -62,7 +62,7 @@ class AddressController extends Controller
         $request['name'] = ucwords($request['name']);
         $request['district'] = ucwords($request['district']);
         $request['street'] = ucwords($request['street']);
-        $request['owner'] = Str::lower($request['owner']);
+        $request['owner_type'] = Str::lower($request['owner_type']);
 
         $address = Address::create($request->all());
 

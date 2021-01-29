@@ -24,7 +24,7 @@ class AddressResource extends JsonResource
             'name' => $this->name,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
-            'owner' =>  $this->owner,
+            'owner_type' =>  $this->owner_type,
             'owner_id' =>  $this->owner_id,
             'city_id' =>  $this->city_id,
             'city' => new CityResource($this->whenLoaded('city')),
