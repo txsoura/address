@@ -14,7 +14,7 @@ $factory->define(Address::class, function (Faker $faker) {
         'name' => $faker->citySuffix,
         'longitude' => $faker->longitude,
         'latitude' => $faker->latitude,
-        'owner' =>  'users',
+        'owner_type' =>  'users',
         'owner_id' =>  $faker->randomDigit,
         'city_id' => function () {
             return factory(City::class)->create()->id;
