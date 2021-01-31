@@ -41,7 +41,7 @@ class ApiACL
             if (!$permissions) {
                 return response()->json([
                     'message' => trans('message.permission_not_found'),
-                    'error' => trans('auth.permission_denied')
+                    'error' => trans('guardian.permission_denied')
                 ], 403);
             }
 
@@ -51,7 +51,7 @@ class ApiACL
             if (!$permission) {
                 return response()->json([
                     'message' => trans('message.no_permission'),
-                    'error' => trans('auth.permission_denied')
+                    'error' => trans('guardian.permission_denied')
                 ], 403);
             }
         }
