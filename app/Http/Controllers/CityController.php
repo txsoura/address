@@ -54,8 +54,8 @@ class CityController extends Controller
      */
     public function show(Request $request, City $city)
     {
-        return CityResource::collection(
-            City::find($city->id)
+        return new CityResource(
+            City::where('id', $city->id)
                 ->when($request['include'], function ($query, $include) {
                     return $query->with(explode(',',  $include));
                 })
