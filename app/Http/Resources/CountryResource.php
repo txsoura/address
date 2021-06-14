@@ -18,6 +18,7 @@ class CountryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
+            'states' => StateResource::collection($this->whenLoaded('states')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
