@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Txsoura</title>
+        <title>{{config('app.name')}}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -67,12 +67,14 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    Txsoura - Address API
+                    {{config('app.name')}}
                 </div>
 
-                <div class="links">
-                    <a href="https://github.com/txsoura/address">GitHub</a>
-                </div>
+                @if (App::environment('local'))
+                    <div class="links">
+                        <a href="https://github.com/txsoura/address">GitHub</a>
+                    </div>
+                @endif
             </div>
         </div>
     </body>
