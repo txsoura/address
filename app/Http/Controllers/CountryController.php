@@ -12,11 +12,18 @@ class CountryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CountryResource::collection(Country::all(), 200);
+        return CountryResource::collection(
+            Country::when($request['include'], function ($query, $include) {
+                return $query->with(explode(',',  $include));
+            })
+                ->get(),
+            200
+        );
     }
 
     /**
@@ -43,12 +50,20 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show(Country $country)
+    public function show(Request $request, Country $country)
     {
-        return new CountryResource($country, 200);
+        return new CountryResource(
+            Country::where('id', $country->id)
+                ->when($request['include'], function ($query, $include) {
+                    return $query->with(explode(',',  $include));
+                })
+                ->firstOrFail(),
+            200
+        );
     }
 
     /**
