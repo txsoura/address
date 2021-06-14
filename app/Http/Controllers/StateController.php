@@ -54,8 +54,8 @@ class StateController extends Controller
      */
     public function show(Request $request, State $state)
     {
-        return StateResource::collection(
-            State::find($state->id)
+        return new StateResource(
+            State::where('id', $state->id)
                 ->when($request['include'], function ($query, $include) {
                     return $query->with(explode(',',  $include));
                 })
