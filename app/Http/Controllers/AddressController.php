@@ -81,8 +81,8 @@ class AddressController extends Controller
      */
     public function show(Request $request, Address $address)
     {
-        return AddressResource::collection(
-            Address::find($address->id)
+        return new AddressResource(
+            Address::where('id',$address->id)
                 ->when($request['include'], function ($query, $include) {
                     return $query->with(explode(',',  $include));
                 })->firstOrFail(),
