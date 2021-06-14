@@ -27,6 +27,8 @@ Route::fallback(function () {
 });
 
 Route::group(['prefix' => 'v1'], function () {
+    Route::apiResource('{ownerType}/{ownerId}/addresses', 'OwnerAddressController')->names('addresses');
+
     Route::apiResource('addresses', 'AddressController');
     Route::apiResource('cities', 'CityController');
     Route::apiResource('states', 'StateController');
